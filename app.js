@@ -17,10 +17,8 @@ mongoose.connect('mongodb+srv://DanguoleLu:rcyX3NFCR76R9MV@cluster0.aopzj.mongod
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
+app.use(express.json());
 
-app.use((req, res) => {
-    res.json({ message: 'Votre requête a bien été reçue !' });
-});
 
 
 app.use('/api/auth', userRoutes);
