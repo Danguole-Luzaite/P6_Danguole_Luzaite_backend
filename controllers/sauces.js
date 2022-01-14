@@ -1,4 +1,5 @@
 const Sauce = require('../models/sauces');
+const fs = require('fs');
 
 // Enregistrement des Sauces dans la base de données
 exports.createSauce = (req, res, next) => { 
@@ -34,10 +35,14 @@ exports.deleteSauce = (req, res, next) => {
       if(sauce.userId !== req.auth.userId){
         res.status(400).json({ error: new Error( 'La requête non autorisée' )});
       }
-    Sauce.deleteOne({ _id: req.params.id })
-      .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
-      .catch(error => res.status(400).json({ error }));
+      const filename = sauce.imageUrl.split('/images/')[1];
+      fs.unlink(`images/${filename}`, () => {
+        Sauce.deleteOne({ _id: req.params.id })
+         .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+         .catch(error => res.status(400).json({ error }));
+      });
     })
+    .catch(error => res.status(500).json({ error }));
 };
 
 exports.getOneSauce = (req, res, next) => {
