@@ -102,4 +102,4 @@ exports.likeDislikeSauce = (req, res, next) => {
     default:
       console.log(" L'action like ou dislike ne peut pas être effectuée! ");
   }
-}
+};
