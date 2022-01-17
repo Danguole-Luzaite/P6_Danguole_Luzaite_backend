@@ -1,7 +1,9 @@
 const express = require('express');
+const helmet = require('helmet');
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
+
 
 const userRoutes = require('./routes/user');
 const saucesRoutes = require('./routes/sauces');
@@ -19,6 +21,8 @@ mongoose.connect('mongodb+srv://DanguoleLu:rcyX3NFCR76R9MV@cluster0.aopzj.mongod
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+app.use(helmet());
 
 app.use(express.json());
 app.use(express.urlencoded({
