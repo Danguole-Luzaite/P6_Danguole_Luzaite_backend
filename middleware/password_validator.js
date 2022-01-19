@@ -15,7 +15,7 @@ passwordvalidatorSchema
 .is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist these values
 
 
-
+//pour vérifier la validation du mot de passe
 module.exports = (req, res, next) => {
   if(passwordvalidatorSchema.validate(req.body.password)){
     next();

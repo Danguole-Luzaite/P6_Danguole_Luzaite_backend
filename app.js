@@ -1,4 +1,5 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit')
 const helmet = require('helmet');
 const app = express();
 const mongoose = require('mongoose');
@@ -7,6 +8,14 @@ const path = require('path');
 
 const userRoutes = require('./routes/user');
 const saucesRoutes = require('./routes/sauces');
+
+//fixer express-rate-limit
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
 
 
 app.use((req, res, next) => {
@@ -21,6 +30,9 @@ mongoose.connect('mongodb+srv://DanguoleLu:rcyX3NFCR76R9MV@cluster0.aopzj.mongod
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+//Appliquer le middleware de rate-limit à toutes les requêtes
+app.use(limiter);
 
 app.use(helmet());
 //définir l'option personnalisée pour la politique "crossOriginResourcePolicy"
