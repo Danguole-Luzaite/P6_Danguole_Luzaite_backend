@@ -23,7 +23,7 @@ mongoose.connect('mongodb+srv://DanguoleLu:rcyX3NFCR76R9MV@cluster0.aopzj.mongod
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use(helmet());
-//
+//définir l'option personnalisée pour la politique "crossOriginResourcePolicy"
 app.use(
   helmet({
     crossOriginResourcePolicy: { policy: 'cross-origin' },

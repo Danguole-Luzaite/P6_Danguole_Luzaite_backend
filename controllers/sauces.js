@@ -8,10 +8,6 @@ exports.createSauce = (req, res, next) => {
   const sauce = new Sauce ({
     ...sauceObject,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-    likes: 0,
-    dislikes: 0,
-    usersLiked: [' '],
-    usersdisLiked: [' '],
   });
   console.log(' mon sauce est..', JSON.stringify(sauce));
   sauce.save()
