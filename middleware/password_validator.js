@@ -21,6 +21,6 @@ module.exports = (req, res, next) => {
     next();
   }else{
     return res.status(400)
-    .json({error: "besoin de créer un mot de passe plus fort + (passwordvalidatorSchema.validate('req.body.password', { list: true }))"})
+    .json({error: "besoin de créer un mot de passe plus fort : " + (passwordvalidatorSchema.validate('req.body.password', { list: true }))})
   }
-}
+};
