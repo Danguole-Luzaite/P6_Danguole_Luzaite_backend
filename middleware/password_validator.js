@@ -6,7 +6,7 @@ const passwordvalidatorSchema = new passwordValidator();
 
 //les propriétés du validateur de mot de passe
 passwordvalidatorSchema
-.is().min(8)                                    // Minimum length 6
+.is().min(8)                                    // Minimum length 8
 .is().max(100)                                  // Maximum length 100
 .has().uppercase()                              // Must have uppercase letters
 .has().lowercase()                              // Must have lowercase letters
@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
   if(passwordvalidatorSchema.validate(req.body.password)){
     next();
   }else{
-    return res.status(400)
-    .json({error: "besoin de créer un mot de passe plus fort : " + (passwordvalidatorSchema.validate('req.body.password', { list: true }))})
+    console.log(passwordvalidatorSchema.validate('req.body.password', { details: true }))
+    return res.status(400).json({error: 'besoin de créer un mot de passe plus fort'})
   }
 };
