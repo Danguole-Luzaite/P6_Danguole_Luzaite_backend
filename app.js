@@ -1,10 +1,10 @@
 const express = require('express');
-const rateLimit = require('express-rate-limit')
+const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
-
+require('dotenv').config()
 
 const userRoutes = require('./routes/user');
 const saucesRoutes = require('./routes/sauces');
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect('mongodb+srv://DanguoleLu:rcyX3NFCR76R9MV@cluster0.aopzj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect(process.env.MONGODB_PASSWORD,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
