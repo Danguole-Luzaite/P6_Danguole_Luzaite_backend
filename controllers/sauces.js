@@ -63,16 +63,17 @@ exports.likeDislikeSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id})
     .then(sauce => {
       switch (req.body.like) {
+        // l'utilisateur aime la sauce
         case 1 :
           if(!sauce.usersLiked.includes(req.body.userId)) sauce.usersLiked.push(req.body.userId);
           if(sauce.usersDisliked.includes(req.body.userId)) sauce.usersDisliked = sauce.usersDisliked.filter(value=> value !=req.body.userId);
           break;
-
+        // l'utilisateur veut annuler son "j'aime" ou "je n'aime pas" 
         case 0 :
           if(sauce.usersLiked.includes(req.body.userId)) sauce.usersLiked = sauce.usersLiked.filter(value=> value !=req.body.userId);
           if(sauce.usersDisliked.includes(req.body.userId)) sauce.usersDisliked = sauce.usersDisliked.filter(value=> value !=req.body.userId);
           break;
-
+        //  l'utilisateur n’aime pas la sauce
         case -1 :
           if(!sauce.usersDisliked.includes(req.body.userId)) sauce.usersDisliked.push(req.body.userId);
           if(sauce.usersLiked.includes(req.body.userId)) sauce.usersLiked = sauce.usersLiked.filter(value=> value !=req.body.userId);
