@@ -93,7 +93,7 @@ exports.likeDislikeSauce = (req, res, next) => {
       sauce.likes = sauce.usersLiked.length;
       sauce.dislikes = sauce.usersDisliked.length;
         Sauce.updateOne({ _id: req.params.id }, sauce)
-        .then(() => res.status(200).json({ message: 'la sauce est bien noté'}))
+        .then(() => res.status(200).json({ message: 'la sauce est bien noté' }))
         .catch((error) => res.status(400).json({ error: error }))
       })
     .catch((error) => res.status(500).json({ error: error }));
